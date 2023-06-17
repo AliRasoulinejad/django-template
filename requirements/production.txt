@@ -1,3 +1,0 @@
--r base.txt
-
-sentry_sdk~=1.25
