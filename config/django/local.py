@@ -1,3 +1,14 @@
-from .base import * #noqa
+from .base import *  # noqa
 
-THIRD_PARTY_APPS.extend(['django_extensions'])
+INSTALLED_APPS += [
+    'debug_toolbar',
+    'django_extensions'
+]
+
+MIDDLEWARE += [
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" :  lambda _:True,
+}
