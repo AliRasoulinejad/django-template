@@ -13,7 +13,9 @@ DEBUG = True
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # Application definition
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'applications.user'
+]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
@@ -115,7 +117,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "applications.user.User"
+AUTH_USER_MODEL = "applications_user.User"
 
 from config.settings.cors import *  # noqa
 from config.settings.drf import *  # noqa

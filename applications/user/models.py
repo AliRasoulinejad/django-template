@@ -1,9 +1,22 @@
-from django.contrib.auth.models import UserManager
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import UserManager as BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from result import Ok, Err
 
 from applications.common.models import BaseModel
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, username, password, **extra_fields):
+        if not username:
+            return Err("The given username must be set")
+        user = self.model(username=username, **extra_fields)
+        user.password = make_password(password)
+        user.save(using=self._db)
+
+        return Ok(user)
 
 
 class User(AbstractBaseUser, BaseModel):
