@@ -5,12 +5,12 @@ from django.conf.urls.static import static
 
 from drf_spectacular.views import (
     SpectacularSwaggerView,
+    SpectacularAPIView,
 )
-
-from .apis import router
 
 urlpatterns = [
     path("", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-    path('admin', admin.site.urls, name="admin"),
-    path('api', include((router.urls, "api"), "api"), name="api"),
+    path("/schema", SpectacularAPIView.as_view(), name="schema"),
+    path('/admin', admin.site.urls, name="admin"),
+    path('/api', include(("applications.api.urls", "apis"))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
