@@ -20,6 +20,7 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'drf_spectacular',
+    'django_prometheus',
 ]
 
 INSTALLED_APPS = [
@@ -33,6 +34,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    # should be at the first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -40,6 +43,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # should be at the end
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -68,7 +73,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 postgres = env.json("POSTGRES_DATABASE")
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django_prometheus.db.backends.postgresql',
         'NAME': postgres.get("NAME"),
         'USER': postgres.get("USER"),
         'PASSWORD': postgres.get("PASSWORD"),
