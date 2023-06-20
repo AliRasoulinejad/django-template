@@ -127,5 +127,6 @@ AUTH_USER_MODEL = "applications_user.User"
 from config.settings.cors import *  # noqa
 from config.settings.drf import *  # noqa
 from config.settings.swagger import *  # noqa
+from config.settings.logging import *  # noqa
 # from config.settings.caches import *  # noqad
 # from config.settings.jwt import *  # noqad
