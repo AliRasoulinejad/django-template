@@ -1,6 +1,13 @@
 import os
 
+import django
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext
+
 from config.env import env, BASE_DIR
+
+django.utils.encoding.smart_text = smart_str
+django.utils.translation.ugettext = gettext
 
 env.read_env(os.path.join(BASE_DIR, ".env"))
 
@@ -19,6 +26,7 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_spectacular',
     'django_prometheus',
 ]
@@ -129,5 +137,5 @@ from config.settings.drf import *  # noqa
 from config.settings.swagger import *  # noqa
 from config.settings.logging import *  # noqa
 from config.settings.tracing import *  # noqa
+from config.settings.jwt import *  # noqa
 # from config.settings.caches import *  # noqad
-# from config.settings.jwt import *  # noqad

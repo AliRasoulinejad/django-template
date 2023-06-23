@@ -27,6 +27,7 @@ opentelemetry-instrumentation = "^0.39b0"
 opentelemetry-instrumentation-logging = "^0.39b0"
 opentelemetry-exporter-jaeger = "^1.18.0"
 flake8 = "^6.0.0"
+djangorestframework-simplejwt = "^5.2.2"
 
 
 [tool.poetry.group.local.dependencies]

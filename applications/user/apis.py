@@ -6,8 +6,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from result import Err
 
+from applications.api.mixins import ApiAuthMixin
 from applications.user.models import User
 from applications.user.services.commands import user_register
+from applications.user.services.queries import user_retrieve
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +40,7 @@ class UserRegisterApi(APIView):
             model = User
             fields = ("id", "username", "first_name", "last_name")
 
-    @extend_schema(request=InputRegisterSerializer, responses=OutputRegisterSerializer)
+    @extend_schema(request=InputRegisterSerializer, responses=OutputRegisterSerializer, tags=["users"])
     def post(self, request):
         serializer = self.InputRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -56,3 +58,21 @@ class UserRegisterApi(APIView):
             )
 
         return Response(self.OutputRegisterSerializer(user.value, context={"request": request}).data)
+
+
+class UserSelfApi(ApiAuthMixin, APIView):
+    class OutputSelfSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ("id", "username", "first_name", "last_name")
+
+    @extend_schema(responses=OutputSelfSerializer, tags=["users"])
+    def get(self, request):
+        user = user_retrieve(username=request.user.username)
+        if isinstance(user, Err):
+            return Response(
+                user.err(),
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        return Response(self.OutputSelfSerializer(user.value, context={"request": request}).data)
