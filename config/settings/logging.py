@@ -1,33 +1,33 @@
+from config.env import env
+
+
+LOGLEVEL = env.str('LOGLEVEL', 'info').upper()
+
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
-        'trace_formatter': {
-            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] [trace_id=%(otelTraceID)s span_id=%(otelSpanID)s] [%(funcName)s] %(message)s',  # optional, default is logging.BASIC_FORMAT
-            'datefmt': '%Y-%m-%d %H:%M:%S',  # optional, default is '%Y-%m-%d %H:%M:%S'
+        'default': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] [%(funcName)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
         },
     },
     'handlers': {
-        'file': {
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'formatter': 'trace_formatter',
-            'filename': 'webapp.log',
-        },
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'trace_formatter',
+            'formatter': 'default',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': LOGLEVEL,
+            'propagate': False,
+        },
+        'applications': {
+            'handlers': ['console'],
+            'level': LOGLEVEL,
             'propagate': True,
         },
-    },
-    'root': {
-        'handlers': ['console', 'file'],
-        'level': 'WARNING',
     },
 }
