@@ -1,4 +1,5 @@
-from .base import * #noqa
+from config.env import env
+from .base import *  # noqa
 
 DEBUG = False
 

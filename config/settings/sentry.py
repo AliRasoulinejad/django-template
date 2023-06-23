@@ -58,10 +58,7 @@ if SENTRY_DSN:
         if op is None:
             return 0
 
-        if op == "celery.task":
-            return 0
-
-        return 0.5
+        return 0 if op == "celery.task" else 0.5
 
     sentry_sdk.init(
         dsn=SENTRY_DSN,

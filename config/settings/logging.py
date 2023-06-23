@@ -1,6 +1,5 @@
 from config.env import env
 
-
 LOGLEVEL = env.str('LOGLEVEL', 'info').upper()
 
 LOGGING = {
