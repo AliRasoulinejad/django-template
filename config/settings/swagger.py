@@ -1,5 +1,0 @@
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'clean django API',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-}
