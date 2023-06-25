@@ -20,12 +20,19 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 # Application definition
 LOCAL_APPS = [
-    'applications.user'
+{%- if cookiecutter.use_simple_user_app == "y" %}
+    'applications.user',
+{%- endif %}
+{%- if cookiecutter.use_jwt == "y" %}
+    'applications.authentication',
+{%- endif %}
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+{%- if cookiecutter.use_jwt == "y" %}
     'rest_framework_simplejwt',
+{%- endif %}
     'drf_spectacular',
     'django_prometheus',
 ]
@@ -41,7 +48,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    {%- if cookiecutter.use_metrics == "y" %}
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    {%- endif %}
     # should be at the first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +60,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # should be at the end
+    {%- if cookiecutter.use_metrics == "y" %}
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    {%- endif %}
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -80,7 +91,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 postgres = env.json("POSTGRES_DATABASE")
 DATABASES = {
     'default': {
+    {%- if cookiecutter.use_metrics == "y" %}
         'ENGINE': 'django_prometheus.db.backends.postgresql',
+    {%- else %}
+        'ENGINE': 'django.db.backends.postgresql',
+    {%- endif %}
         'NAME': postgres.get("NAME"),
         'USER': postgres.get("USER"),
         'PASSWORD': postgres.get("PASSWORD"),
@@ -129,12 +144,21 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+{%- if cookiecutter.use_simple_user_app == "y" %}
 AUTH_USER_MODEL = "applications_user.User"
+{%- endif %}
+
 
 from config.settings.cors import *  # noqa
 from config.settings.drf import *  # noqa
 from config.settings.swagger import *  # noqa
+{%- if cookiecutter.use_logging == "y" %}
 from config.settings.logging import *  # noqa
+{%- endif %}
+{%- if cookiecutter.use_tracing == "y" %}
 from config.settings.tracing import *  # noqa
+{%- endif %}
+{%- if cookiecutter.use_jwt == "y" %}
 from config.settings.jwt import *  # noqa
+{%- endif %}
 # from config.settings.caches import *  # noqad
