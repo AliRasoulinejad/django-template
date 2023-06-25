@@ -23,14 +23,14 @@ LOCAL_APPS = [
 {%- if cookiecutter.use_simple_user_app == "y" %}
     'applications.user',
 {%- endif %}
-{%- if cookiecutter.use_jwt == "y" %}
+{%- if cookiecutter.use_jwt_authentication == "y" %}
     'applications.authentication',
 {%- endif %}
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-{%- if cookiecutter.use_jwt == "y" %}
+{%- if cookiecutter.use_jwt_authentication == "y" %}
     'rest_framework_simplejwt',
 {%- endif %}
     'drf_spectacular',
@@ -158,7 +158,7 @@ from config.settings.logging import *  # noqa
 {%- if cookiecutter.use_tracing == "y" %}
 from config.settings.tracing import *  # noqa
 {%- endif %}
-{%- if cookiecutter.use_jwt == "y" %}
+{%- if cookiecutter.use_jwt_authentication == "y" %}
 from config.settings.jwt import *  # noqa
 {%- endif %}
 # from config.settings.caches import *  # noqad

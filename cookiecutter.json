@@ -1,6 +1,6 @@
 {
-  "email": "audreyr@example.com",
-  "github_username": "audreyr",
+  "email": "ali.rasoulinejad75@gmail.com",
+  "github_username": "AliRasoulinejad",
   "project_name": "django template",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Personal django template to bootstrap a simple django project",
