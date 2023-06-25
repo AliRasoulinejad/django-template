@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class AuthenticationConfig(AppConfig):
-    name = 'applications.authentication'
+    name = '{{cookiecutter.project_slug}}.applications.authentication'
