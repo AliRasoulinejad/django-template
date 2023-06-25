@@ -14,7 +14,9 @@ urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('api/', include(("applications.api.urls", "apis"))),
 
+{%- if cookiecutter.use_metrics == "y" %}
     path("metrics", exports.ExportToDjangoView, name="prometheus-django-metrics"),
+{%- endif %}
 ]
 
 if settings.DEBUG:

@@ -1,12 +1,8 @@
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager as BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
-from django_prometheus.models import ExportModelOperationsMixin
 from result import Ok, Err
-
-from applications.common.models import BaseModel
 
 
 class UserManager(BaseUserManager):
@@ -20,7 +16,8 @@ class UserManager(BaseUserManager):
         return Ok(user)
 
 
-class User(ExportModelOperationsMixin('user'), AbstractBaseUser, BaseModel):
+class User({%- if cookiecutter.use_metrics == "y" %}ExportModelOperationsMixin('user'){%- endif %}
+AbstractBaseUser, BaseModel):
     username = models.CharField(
         "username",
         max_length=150,
