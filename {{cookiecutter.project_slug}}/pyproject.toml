@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-template"
+name = "{{cookiecutter.project_slug}}"
 version = "0.1.0"
 description = ""
 authors = ["ali.rasoulinejad <ali.rasoulinejad75@gmail.com>"]

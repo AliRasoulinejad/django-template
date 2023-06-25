@@ -1,6 +1,5 @@
-from result import Result, Ok, Err
-
 from applications.user.models import User
+from result import Result, Ok, Err
 
 
 def user_retrieve(*, username: str) -> Result[User, str]:

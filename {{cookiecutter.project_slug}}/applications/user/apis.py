@@ -1,15 +1,14 @@
 import logging
 
+from applications.api.mixins import ApiAuthMixin
+from applications.user.models import User
+from applications.user.services.commands import user_register
+from applications.user.services.queries import user_retrieve
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from result import Err
-
-from applications.api.mixins import ApiAuthMixin
-from applications.user.models import User
-from applications.user.services.commands import user_register
-from applications.user.services.queries import user_retrieve
 
 logger = logging.getLogger(__name__)
 
