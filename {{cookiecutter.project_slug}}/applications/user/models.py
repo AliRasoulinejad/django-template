@@ -3,7 +3,7 @@ from django.contrib.auth.models import UserManager as BaseUserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from result import Ok, Err
-
+{%- if cookiecutter.use_metrics == "y" %}{ % - endif %}
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password, **extra_fields):
@@ -16,8 +16,7 @@ class UserManager(BaseUserManager):
         return Ok(user)
 
 
-class User({%- if cookiecutter.use_metrics == "y" %}ExportModelOperationsMixin('user'){%- endif %}
-AbstractBaseUser, BaseModel):
+class User({%- if cookiecutter.use_metrics == "y" %}ExportModelOperationsMixin('user'), {%- endif %} AbstractBaseUser, BaseModel):
     username = models.CharField(
         "username",
         max_length=150,

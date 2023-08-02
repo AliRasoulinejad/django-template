@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["ali.rasoulinejad <ali.rasoulinejad75@gmail.com>"]
 readme = "README.md"
-packages = [{include = "django_template"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
