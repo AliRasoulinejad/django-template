@@ -16,7 +16,8 @@ class UserManager(BaseUserManager):
         return Ok(user)
 
 
-class User({%- if cookiecutter.use_metrics == "y" %}ExportModelOperationsMixin('user'),{%- endif %} AbstractBaseUser, BaseModel):
+class User({%- if cookiecutter.use_metrics == "y" %}ExportModelOperationsMixin('user'),
+{%- endif %} AbstractBaseUser, BaseModel):
     username = models.CharField(
         "username",
         max_length=150,
